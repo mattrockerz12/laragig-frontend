@@ -1,12 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../redux/actions/loginActions";
 
 const Login = ({ setLogin }) => {
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   const [loggedIn, setLoggedIn] = useState({
     email: "",
@@ -24,12 +21,10 @@ const Login = ({ setLogin }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //console.log(login);
-
-    dispatch(loginUser(loggedIn));
+    await axios.post("http://localhost:8000/api/login", loggedIn);
 
     setRedirect(true);
 

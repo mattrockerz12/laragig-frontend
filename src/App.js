@@ -26,7 +26,7 @@ const App = () => {
         setUser(null);
       }
     })();
-  }, []);
+  }, [login]);
 
   return (
     <>
