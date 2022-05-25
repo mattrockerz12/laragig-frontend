@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadListing } from "../redux/actions/listingActions";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Pagination from "react-js-pagination";
 
 const Home = ({ user }) => {
   const dispatch = useDispatch();
@@ -10,14 +11,23 @@ const Home = ({ user }) => {
 
   const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
-    dispatch(loadListing(1));
-  }, [dispatch]);
+  const [filters, setFilters] = useState({
+    page: 1,
+  });
 
-  //return <>Home page rendered</>;
+  useEffect(() => {
+    dispatch(loadListing(filters));
+  }, [dispatch, filters]);
 
   const handleClick = () => {
     setRedirect(true);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setFilters({
+      ...filters,
+      page: pageNumber,
+    });
   };
 
   if (redirect) {
@@ -48,14 +58,30 @@ const Home = ({ user }) => {
             <div className="card">
               <img className="img-top" src={list.logo} alt={list.title} />
               <div className="card-body">
-                <h4 className="card-title">
-                  <Link to={`/manage/gig/${list.id}`}>{list.title}</Link>
-                </h4>
+                <h4 className="card-title">{list.title}</h4>
+                <h6 className="card-subtitle mb-2">{list.company}</h6>
                 <p className="card-text">{list.description}</p>
+                <div className="btn-group mb-3">
+                  <button className="btn btn-info btn-sm mr-3">Laravel</button>
+                  <button className="btn btn-dark btn-sm">API</button>
+                  <button className="btn btn-success btn-sm">Backend</button>
+                  <button className="btn btn-warning btn-sm">ReactJs</button>
+                </div>
+                <p>{list.location}</p>
               </div>
             </div>
           </div>
         ))}
+      </div>
+      <div className="mt-3">
+        <Pagination
+          activePage={listings.meta.current_page}
+          totalItemsCount={parseInt(listings.meta.total, 10)}
+          itemsCountPerPage={listings.meta.per_page}
+          onChange={(pageNumber) => handlePageChange(pageNumber)}
+          itemClass="page-item"
+          linkClass="page-link"
+        />
       </div>
     </>
   );

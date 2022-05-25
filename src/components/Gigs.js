@@ -46,7 +46,7 @@ const Gigs = ({ user }) => {
             Create
           </button>
           <div className="table-responsive">
-            <table className="table">
+            <table className="table table-image">
               <thead>
                 <tr>
                   <th>Title</th>
@@ -67,7 +67,6 @@ const Gigs = ({ user }) => {
                     <td>
                       <div>
                         <img
-                          style={{ width: "70%", height: "100%" }}
                           className="bg-info rounded-circle img-fluid"
                           src={list.logo}
                         />
