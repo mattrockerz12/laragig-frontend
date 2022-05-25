@@ -11,9 +11,7 @@ const Home = ({ user }) => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    if (listings.length === 0) {
-      dispatch(loadListing());
-    }
+    dispatch(loadListing(1));
   }, [dispatch]);
 
   //return <>Home page rendered</>;
@@ -38,15 +36,15 @@ const Home = ({ user }) => {
                 className="btn btn-danger fs-5 py-2 px-4"
                 onClick={handleClick}
               >
-                {user ? "Create a gigs" : "Signup to list a gigs"}
+                {user ? "Click to list a gigs" : "Signup to list a gigs"}
               </button>
             </div>
           </div>
         </div>
       </section>
       <div className="row">
-        {listings.map((list) => (
-          <div className="col-xs-12 col-md-6 col-lg-4" key={list.id}>
+        {listings.listings.map((list, index) => (
+          <div className="col-xs-12 col-md-6 col-lg-4" key={index}>
             <div className="card">
               <img className="img-top" src={list.logo} />
               <div className="card-body">

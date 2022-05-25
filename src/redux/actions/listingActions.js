@@ -1,14 +1,21 @@
 import axios from "axios";
 import * as types from "./actiontypes";
 
-export const loadListing = () => async (dispatch) => {
+export const loadListing = (filters) => async (dispatch) => {
+  const arr = [];
+
+  if (filters.page) {
+    arr.push(`page=${filters.page}`);
+  }
+
   const { data } = await axios.get(
-    "http://localhost:8000/api/laragig/listings"
+    `http://localhost:8000/api/laragig/listings?${arr.join("&")}`
   );
 
   dispatch({
     type: types.LOAD_LISTINGS,
     payload: data.data,
+    meta: data.meta,
   });
 };
 

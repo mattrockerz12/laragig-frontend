@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadListing, deleteList } from "../redux/actions/listingActions";
 import { Link, Navigate } from "react-router-dom";
+import Pagination from "react-js-pagination";
 
 const Gigs = () => {
   const dispatch = useDispatch();
@@ -10,20 +11,27 @@ const Gigs = () => {
 
   const [redirect, setRedirect] = useState(false);
 
+  const [filters, setFilters] = useState({
+    page: 1,
+  });
+
   useEffect(() => {
-    dispatch(loadListing());
-  }, []);
+    dispatch(loadListing(filters));
+  }, [filters]);
 
   const handleDelete = (list) => {
     dispatch(deleteList(list));
   };
 
-  /*if (redirect) {
-    navigate("/manage/gig");
-  }*/
-
   const handleClick = () => {
     setRedirect(true);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setFilters({
+      ...filters,
+      page: pageNumber,
+    });
   };
 
   if (redirect) {
@@ -51,8 +59,8 @@ const Gigs = () => {
             </tr>
           </thead>
           <tbody>
-            {listings.map((list) => (
-              <tr key={list.id}>
+            {listings.listings.map((list, index) => (
+              <tr key={index}>
                 <td>{list.title}</td>
                 <td>
                   <div>
@@ -89,6 +97,16 @@ const Gigs = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="mt-3">
+        <Pagination
+          activePage={listings.meta.current_page}
+          totalItemsCount={parseInt(listings.meta.total, 10)}
+          itemsCountPerPage={listings.meta.per_page}
+          onChange={(pageNumber) => handlePageChange(pageNumber)}
+          itemClass="page-item"
+          linkClass="page-link"
+        />
       </div>
     </>
   );
