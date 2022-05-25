@@ -1,10 +1,8 @@
-import { combineReducers } from 'redux'
-import todos from "./todoReducer";
+import { combineReducers } from "redux";
 import listings from "./listingReducer";
 
 const rootReducer = combineReducers({
-    todos,
-    listings
+  listings,
 });
 
-export default rootReducer
+export default rootReducer;

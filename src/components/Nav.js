@@ -10,7 +10,7 @@ const Nav = ({ user, setLogin }) => {
 
     setLogin();
 
-    navigate("/login");
+    navigate("/");
   };
 
   const handleLogin = () => {

@@ -33,10 +33,9 @@ const App = () => {
       <div className="container">
         <Routes>
           <Route path="/" element={<Home user={user} />} />
-
-          <Route path="/gigs" element={<Gigs />} />
-          <Route path="/manage/gig/:id" element={<GigEditForm />} />
-          <Route path="/manage/gig" element={<GigCreateForm />} />
+          <Route path="/gigs" element={<Gigs user={user} />} />
+          <Route path="/manage/gig/:id" element={<GigEditForm user={user} />} />
+          <Route path="/manage/gig" element={<GigCreateForm user={user} />} />
           <Route
             path="login"
             element={<Login setLogin={() => setLogin(true)} />}

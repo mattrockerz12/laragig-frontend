@@ -46,7 +46,7 @@ const Home = ({ user }) => {
         {listings.listings.map((list, index) => (
           <div className="col-xs-12 col-md-6 col-lg-4" key={index}>
             <div className="card">
-              <img className="img-top" src={list.logo} />
+              <img className="img-top" src={list.logo} alt={list.title} />
               <div className="card-body">
                 <h4 className="card-title">
                   <Link to={`/manage/gig/${list.id}`}>{list.title}</Link>

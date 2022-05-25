@@ -22,7 +22,6 @@ export default function listReducer(state = initialState, action) {
       return {
         ...state,
         listings: [
-          ...state.listings,
           ...state.listings.map((list) =>
             list.id === action.payload.id ? action.payload : list
           ),
@@ -32,7 +31,6 @@ export default function listReducer(state = initialState, action) {
       return {
         ...state,
         listings: [
-          ...state.listings,
           ...state.listings.filter((list) => list.id !== action.payload.id),
         ],
       };

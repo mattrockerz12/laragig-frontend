@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import { editList } from "../redux/actions/listingActions";
 
-const GigEditForm = () => {
+const GigEditForm = ({ user }) => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -38,17 +38,6 @@ const GigEditForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    /*console.log({
-            title,
-            logo,
-            tags,
-            company,
-            location,
-            email,
-            website,
-            description
-        })*/
 
     dispatch(
       editList(
@@ -96,108 +85,114 @@ const GigEditForm = () => {
 
   return (
     <>
-      <button className="btn btn-info btn-lg m-4" onClick={handleBack}>
-        Back
-      </button>
-      <section className="position-relative py-4 py-xl-5">
-        <div className="row d-flex justify-content-center">
-          <div className="col-md-8 col-lg-6 col-xl-5">
-            <div className="card mb-5">
-              <div className="card-body p-sm-5">
-                <h2 className="text-center mb-4">Edit Gig</h2>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <label className="form-label">Title</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="title"
-                      defaultValue={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
+      {user ? (
+        <>
+          <button className="btn btn-info btn-lg m-4" onClick={handleBack}>
+            Back
+          </button>
+          <section className="position-relative py-4 py-xl-5">
+            <div className="row d-flex justify-content-center">
+              <div className="col-md-8 col-lg-6 col-xl-5">
+                <div className="card mb-5">
+                  <div className="card-body p-sm-5">
+                    <h2 className="text-center mb-4">Edit Gig</h2>
+                    <form onSubmit={handleSubmit}>
+                      <div className="mb-3">
+                        <label className="form-label">Title</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="title"
+                          defaultValue={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Logo</label>
+                        <input
+                          className="form-control"
+                          type="file"
+                          name="logo"
+                          onChange={(e) => upload(e.target.files)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Tags</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="tags"
+                          defaultValue={tags}
+                          onChange={(e) => setTags(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Company</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="company"
+                          defaultValue={company}
+                          onChange={(e) => setCompany(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Location</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="location"
+                          defaultValue={location}
+                          onChange={(e) => setLocation(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Email</label>
+                        <input
+                          className="form-control"
+                          type="email"
+                          name="email"
+                          defaultValue={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Website Link</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="website"
+                          defaultValue={website}
+                          onChange={(e) => setWebsite(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Description</label>
+                        <textarea
+                          className="form-control"
+                          name="description"
+                          defaultValue={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                        ></textarea>
+                      </div>
+                      <div className="mb-3">
+                        <button
+                          className="btn btn-success d-block w-100"
+                          type="submit"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">Logo</label>
-                    <input
-                      className="form-control"
-                      type="file"
-                      name="logo"
-                      onChange={(e) => upload(e.target.files)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Tags</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="tags"
-                      defaultValue={tags}
-                      onChange={(e) => setTags(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Company</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="company"
-                      defaultValue={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Location</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="location"
-                      defaultValue={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <input
-                      className="form-control"
-                      type="email"
-                      name="email"
-                      defaultValue={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Website Link</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="website"
-                      defaultValue={website}
-                      onChange={(e) => setWebsite(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <textarea
-                      className="form-control"
-                      name="description"
-                      defaultValue={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                  </div>
-                  <div className="mb-3">
-                    <button
-                      className="btn btn-success d-block w-100"
-                      type="submit"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        </>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </>
   );
 };
