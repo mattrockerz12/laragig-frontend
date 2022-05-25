@@ -1,10 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Login = ({ setLogin }) => {
-  const navigate = useNavigate();
-
   const [loggedIn, setLoggedIn] = useState({
     email: "",
     password: "",
@@ -32,7 +30,7 @@ const Login = ({ setLogin }) => {
   };
 
   if (redirect) {
-    return navigate("/");
+    return <Navigate to="/" />;
   }
 
   return (

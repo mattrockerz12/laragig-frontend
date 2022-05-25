@@ -8,7 +8,7 @@ export const loadListing = () => async (dispatch) => {
 
   dispatch({
     type: types.LOAD_LISTINGS,
-    payload: data,
+    payload: data.data,
   });
 };
 

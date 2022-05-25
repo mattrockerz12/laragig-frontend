@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { saveList } from "../redux/actions/listingActions";
 
 const GigCreateForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [logo, setLogo] = useState("");
@@ -20,17 +19,6 @@ const GigCreateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    /*console.log({
-            title,
-            logo,
-            tags,
-            company,
-            location,
-            email,
-            website,
-            description
-        });*/
 
     dispatch(
       saveList({
@@ -70,7 +58,7 @@ const GigCreateForm = () => {
   };
 
   if (redirect) {
-    return navigate("/gigs");
+    return <Navigate to="/gigs" />;
   }
 
   return (

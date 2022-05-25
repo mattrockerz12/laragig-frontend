@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { editList } from "../redux/actions/listingActions";
 
 const GigEditForm = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
@@ -91,7 +91,7 @@ const GigEditForm = () => {
   };
 
   if (redirect) {
-    return navigate("/gigs");
+    return <Navigate to="/gigs" />;
   }
 
   return (
@@ -104,7 +104,7 @@ const GigEditForm = () => {
           <div className="col-md-8 col-lg-6 col-xl-5">
             <div className="card mb-5">
               <div className="card-body p-sm-5">
-                <h2 className="text-center mb-4">Create Gig</h2>
+                <h2 className="text-center mb-4">Edit Gig</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label className="form-label">Title</label>

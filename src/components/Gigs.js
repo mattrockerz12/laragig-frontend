@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadListing, deleteList } from "../redux/actions/listingActions";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Gigs = () => {
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
-  const [redirect, setRedirect] = useState(false);
-
   const listings = useSelector((state) => state.listings);
+
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     dispatch(loadListing());
   }, []);
 
-  const handleClick = () => {
-    setRedirect(true);
-  };
-
   const handleDelete = (list) => {
     dispatch(deleteList(list));
   };
 
-  if (redirect) {
+  /*if (redirect) {
     navigate("/manage/gig");
+  }*/
+
+  const handleClick = () => {
+    setRedirect(true);
+  };
+
+  if (redirect) {
+    return <Navigate to="/manage/gig" />;
   }
 
   return (
@@ -33,7 +35,7 @@ const Gigs = () => {
       <button className="btn btn-success btn-lg m-3" onClick={handleClick}>
         Create
       </button>
-      <div className="table-response">
+      <div className="table-responsive">
         <table className="table">
           <thead>
             <tr>
