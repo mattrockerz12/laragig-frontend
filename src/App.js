@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Login from "./components/Login";
@@ -13,6 +13,8 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [login, setLogin] = useState(false);
 
+  let navigate = useNavigate();
+
   useEffect(() => {
     (async () => {
       try {
@@ -23,9 +25,10 @@ const App = () => {
         setUser(data.data);
       } catch (e) {
         setUser(null);
+        navigate("/login");
       }
     })();
-  }, [login]);
+  }, [login, navigate]);
 
   return (
     <>
@@ -33,9 +36,9 @@ const App = () => {
       <div className="container">
         <Routes>
           <Route path="/" element={<Home user={user} />} />
-          <Route path="/gigs" element={<Gigs user={user} />} />
-          <Route path="/manage/gig/:id" element={<GigEditForm user={user} />} />
-          <Route path="/manage/gig" element={<GigCreateForm user={user} />} />
+          <Route path="/gigs" element={<Gigs />} />
+          <Route path="/manage/gig/:id" element={<GigEditForm />} />
+          <Route path="/manage/gig" element={<GigCreateForm />} />
           <Route
             path="login"
             element={<Login setLogin={() => setLogin(true)} />}

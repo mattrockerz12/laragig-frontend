@@ -1,24 +1,12 @@
 import axios from "axios";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Nav = ({ user, setLogin }) => {
-  const navigate = useNavigate();
-
   const handleLogout = async () => {
     await axios.post("http://localhost:8000/api/laragig/logout");
 
     setLogin();
-
-    navigate("/");
-  };
-
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
-  const handleRegister = () => {
-    navigate("/register");
   };
 
   let links;
@@ -27,14 +15,14 @@ const Nav = ({ user, setLogin }) => {
     links = (
       <>
         <div className="d-md-none my-2">
-          <button className="btn btn-warning" onClick={handleLogout}>
+          <Link className="btn btn-warning" onClick={handleLogout} to="/">
             Logout
-          </button>
+          </Link>
         </div>
         <div className="d-none d-md-block">
-          <button className="btn btn-warning" onClick={handleLogout}>
+          <Link className="btn btn-warning" onClick={handleLogout} to="/login">
             Logout
-          </button>
+          </Link>
         </div>
       </>
     );
@@ -42,20 +30,20 @@ const Nav = ({ user, setLogin }) => {
     links = (
       <>
         <div className="d-md-none my-2">
-          <button className="btn btn-light me-2" onClick={handleLogin}>
+          <Link className="btn btn-light me-2" to="/login">
             Login
-          </button>
-          <button className="btn btn-primary" onClick={handleRegister}>
+          </Link>
+          <Link className="btn btn-primary" to="/register">
             Register
-          </button>
+          </Link>
         </div>
         <div className="d-none d-md-block">
-          <button className="btn btn-light me-2" onClick={handleLogin}>
+          <Link className="btn btn-light me-2" to="/login">
             Login
-          </button>
-          <button className="btn btn-primary" onClick={handleRegister}>
+          </Link>
+          <Link className="btn btn-primary" to="/register">
             Register
-          </button>
+          </Link>
         </div>
       </>
     );
