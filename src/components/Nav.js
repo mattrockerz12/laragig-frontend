@@ -1,12 +1,14 @@
 import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Nav = ({ user, setLogin }) => {
+const Nav = () => {
+  const user = useSelector((state) => state.user.user);
   const handleLogout = async () => {
     await axios.post("http://localhost:8000/api/laragig/logout");
 
-    setLogin();
+    window.location.href = "/login";
   };
 
   let links;
@@ -15,14 +17,14 @@ const Nav = ({ user, setLogin }) => {
     links = (
       <>
         <div className="d-md-none my-2">
-          <Link className="btn btn-warning" onClick={handleLogout} to="/">
+          <button className="btn btn-warning" onClick={handleLogout}>
             Logout
-          </Link>
+          </button>
         </div>
         <div className="d-none d-md-block">
-          <Link className="btn btn-warning" onClick={handleLogout} to="/login">
+          <button className="btn btn-warning" onClick={handleLogout}>
             Logout
-          </Link>
+          </button>
         </div>
       </>
     );

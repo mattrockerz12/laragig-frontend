@@ -7,11 +7,14 @@ import Pagination from "react-js-pagination";
 const Gigs = () => {
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.user);
+
   const listings = useSelector((state) => state.listings);
 
   const [redirect, setRedirect] = useState(false);
 
   const [filters, setFilters] = useState({
+    q: "",
     page: 1,
   });
 
@@ -27,6 +30,13 @@ const Gigs = () => {
     setRedirect(true);
   };
 
+  const handleSearch = (q) => {
+    setFilters({
+      ...filters,
+      q,
+    });
+  };
+
   const handlePageChange = (pageNumber) => {
     setFilters({
       ...filters,
@@ -38,11 +48,24 @@ const Gigs = () => {
     return <Navigate to="/manage/gig" />;
   }
 
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
-      <button className="btn btn-success btn-lg m-3" onClick={handleClick}>
+      <button
+        className="btn btn-success btn-lg mb-3 mt-3"
+        onClick={handleClick}
+      >
         Create
       </button>
+      <input
+        className="form-control"
+        type="search"
+        placeholder="Search..."
+        onChange={(e) => handleSearch(e.target.value)}
+      />
       <div className="table-responsive">
         <table className="table table-image">
           <thead>

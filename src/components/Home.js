@@ -4,14 +4,13 @@ import { loadListing } from "../redux/actions/listingActions";
 import { Navigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
-const Home = ({ user }) => {
+const Home = () => {
   const dispatch = useDispatch();
-
-  const listings = useSelector((state) => state.listings);
-
+  const listings = useSelector((state) => state.listings.listings);
+  const meta = useSelector((state) => state.listings.meta);
   const [redirect, setRedirect] = useState(false);
-
   const [filters, setFilters] = useState({
+    q: "",
     page: 1,
   });
 
@@ -30,8 +29,22 @@ const Home = ({ user }) => {
     });
   };
 
+  const handleSearchChange = (q) => {
+    setFilters({
+      ...filters,
+      page: 1,
+      q,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(filters.q);
+  };
+
   if (redirect) {
-    return <Navigate to="/register" />;
+    return <Navigate to="/gigs" />;
   }
 
   return (
@@ -46,14 +59,24 @@ const Home = ({ user }) => {
                 className="btn btn-danger fs-5 py-2 px-4"
                 onClick={handleClick}
               >
-                {user ? "Click to list a gigs" : "Signup to list a gigs"}
+                Click to list a gigs
               </button>
             </div>
           </div>
         </div>
       </section>
+      <form className="mb-3" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search..."
+            onChange={(e) => handleSearchChange(e.target.value)}
+          />
+        </div>
+      </form>
       <div className="row">
-        {listings.listings.map((list, index) => (
+        {listings.map((list, index) => (
           <div className="col-xs-12 col-md-6 col-lg-4" key={index}>
             <div className="card">
               <img className="img-top" src={list.logo} alt={list.title} />
@@ -75,9 +98,9 @@ const Home = ({ user }) => {
       </div>
       <div className="mt-3">
         <Pagination
-          activePage={listings.meta.current_page}
-          totalItemsCount={parseInt(listings.meta.total, 10)}
-          itemsCountPerPage={listings.meta.per_page}
+          activePage={meta.current_page}
+          totalItemsCount={parseInt(meta.total, 10)}
+          itemsCountPerPage={meta.per_page}
           onChange={(pageNumber) => handlePageChange(pageNumber)}
           itemClass="page-item"
           linkClass="page-link"

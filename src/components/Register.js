@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { saveUser } from "../redux/actions/registerAction";
 
-const Register = ({ user }) => {
+const Register = () => {
   const dispatch = useDispatch();
-
   const [register, setRegister] = useState({
     name: "",
     email: "",
@@ -32,9 +31,7 @@ const Register = ({ user }) => {
     }));
   };
 
-  if (user) {
-    return <Navigate to="/gigs" />;
-  } else if (redirect) {
+  if (redirect) {
     return <Navigate to="/login" />;
   }
 

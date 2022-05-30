@@ -8,6 +8,10 @@ export const loadListing = (filters) => async (dispatch) => {
     arr.push(`page=${filters.page}`);
   }
 
+  if (filters.q) {
+    arr.push(`q=${filters.q}`);
+  }
+
   const { data } = await axios.get(
     `http://localhost:8000/api/laragig/listings?${arr.join("&")}`
   );

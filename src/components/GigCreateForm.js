@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { saveList } from "../redux/actions/listingActions";
 
 const GigCreateForm = () => {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user.user);
   const [title, setTitle] = useState("");
   const [logo, setLogo] = useState("");
   const [tags, setTags] = useState("");
@@ -59,6 +59,10 @@ const GigCreateForm = () => {
 
   if (redirect) {
     return <Navigate to="/gigs" />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
   }
 
   return (

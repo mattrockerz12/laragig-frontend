@@ -1,14 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 
-const Login = ({ setLogin }) => {
+const Login = () => {
   const [loggedIn, setLoggedIn] = useState({
     email: "",
     password: "",
   });
-
-  const [redirect, setRedirect] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,14 +21,8 @@ const Login = ({ setLogin }) => {
 
     await axios.post("http://localhost:8000/api/login", loggedIn);
 
-    setRedirect(true);
-
-    setLogin();
+    window.location.href = "/";
   };
-
-  if (redirect) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <div className="row mb-5">
